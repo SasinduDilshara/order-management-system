@@ -1,7 +1,6 @@
 import ballerina/lang.runtime;
 import ballerina/log;
 import ballerina/websocket;
-import ballerina/io;
 
 type Location record {|
     decimal latitude;
@@ -41,7 +40,6 @@ distinct service class LocationService {
     function routeLocationFromServerToClient(websocket:Caller caller, string cargoId) returns error? {
         while true {
             Location|error currentLocation = getLocation(cargoId);
-            io:println("Sending location: ", currentLocation);
             check caller->writeMessage(check currentLocation);
             runtime:sleep(3);
         }
@@ -49,6 +47,5 @@ distinct service class LocationService {
 }
 
 function getLocation(string cargoId) returns Location|error {
-    // return {latitude: 6.9271, longitude: 79.8612};
     return getLocationOfCargo(cargoId);
 }

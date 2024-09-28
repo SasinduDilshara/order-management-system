@@ -26,6 +26,9 @@ import { getCargoOrderUrl, getOrderUrl } from 'src/constants/Constants';
 import { getAPI } from 'src/api/ApiHandler';
 import SimpleDialog from 'src/components/orders/view-order';
 
+const tokenWithAdminScope = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjVhMGI3NTQtODk1Zi00Mjc5LTg4NDMtYjc0NWUxMWE1N2U5IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImJhbGxlcmluYSIsImlzcyI6IndzbzIiLCJhdWQiOlsiYmFsbGVyaW5hIiwiYmFsbGVyaW5hLm9yZyIsImJhbGxlcmluYS5pbyJdLCJqdGkiOiJKbGJtTWlPaUpCTVRJNFEwSkRMVWhUTWpVMkluIiwic2NvcGUiOiJhZG1pbiIsImV4cCI6MTcyNzU0ODQzMX0.BdobO5FSqic_V4523kSfrXTIxa1FnuarHFIUnlEduTSvLo7uebiVrsCvVmQxFpWSI4jnJl7QquPfP8ppu9SaOzhMIcc58JTCUTNkyAnJf0mgRHOpsa0OizFcQfoKK5KlLpnUA_7izYtoucYaKfuAsLPg-GqzIPNx9mde_JcOZAzjMoedJ2fj5ZQWomosrkKzkBD2zc-DW2fE5zIfQgbxTWZAQVGR5WBkuX1n6Ao89SpLa5K8imG_-ZbH6HFsdoz6EeuaAsScRPZw95UnBtIixF8Pch08Iujr7bXoyACtji6SCJ4OCitl7rzrpMmhyV30QSUrM5Jch5zqOy3DmiOytw";
+const tokenWithoutAdminScope = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjVhMGI3NTQtODk1Zi00Mjc5LTg4NDMtYjc0NWUxMWE1N2U5IiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImJhbGxlcmluYSIsImlzcyI6IndzbzIiLCJhdWQiOlsiYmFsbGVyaW5hIiwiYmFsbGVyaW5hLm9yZyIsImJhbGxlcmluYS5pbyJdLCJqdGkiOiJKbGJtTWlPaUpCTVRJNFEwSkRMVWhUTWpVMkluIiwic2NvcGUiOiJub3QtYS1hZG1pbiIsImV4cCI6MTcyNzU0ODY2N30.gCoBUn-OFuUbzPQiMo3LiH3sk5KSI5x5p0k3mB4fExKDUhmqeiht1cSn4ErMXJCxLFQqWA22gA27Ix3CWvYEn8H3f_7bVt_DkgM3wcJtYoJ9lmwPj-5SWFQ73X_OJsnZH3PZgevKhG0BZ7I_K7dej9kXexJ21xzgsf9Kvg94QdWx6WOvJaGRvM06xz2hPWBnLOULPzrXdpTMXo2T9x8LZDd1am4zUFJaNWqgXLH-_6VPv_CSBcBQk1ddKLHds02msCLtStO7QZwqBBP0ytsA3p-bUbKprohXHu_494vXM7pK5xaXzveIU-DZRpCElzkZeOOXSagVLv_PgeG-gl0gUw";
+
 const Page = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -38,7 +41,7 @@ const Page = () => {
 
   const fetchOrderData = async (id) => {
     try {
-      const response = await getAPI(getOrderUrl + "/" + id);
+      const response = await getAPI(getOrderUrl + "/" + id, {headers: {'Authorization': 'Bearer ' + tokenWithAdminScope, 'Content-Type': 'application/json'}});
       if (response.status !== 200) {
         setError(response.message);
       } else {
@@ -63,7 +66,7 @@ const Page = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await getAPI(cargo != '' ? getCargoOrderUrl(cargo): getOrderUrl);
+      const response = await getAPI(cargo != '' ? getCargoOrderUrl(cargo): getOrderUrl, {headers: {'Authorization': 'Bearer ' + tokenWithAdminScope, 'Content-Type': 'application/json'}});
       if (response.status !== 200) {
         setError(response.message);
       } else {
