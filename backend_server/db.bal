@@ -1,25 +1,23 @@
-import ballerina/sql;
+final table<Order> key(id) orders = table [
+    {id: "HM-278", quantity: 5, item: "TV", customerId: "C-124", cargoId: "S-224", date: "22-11-2023", status: PENDING},
+    {id: "HM-340", quantity: 3, item: "IPhone 14", customerId: "C-73", cargoId: "S-225", date: "12-11-2023", status: DELIVERED}
+];
 
-// Deine configurable variables
-
-// Initialize MySQL client
-
-isolated function insertOrder(Order entry) returns sql:ExecutionResult|error {
-    // Add the order to the database.
+function insertOrder(Order entry) {
+    orders.add(entry);
 }
 
-isolated function selectOrder(string id) returns Order|sql:Error {
-    // Retrieve the order from the database.
+function selectOrder(string id) returns Order|error {
+    if (orders.hasKey(id)) {
+        return orders.get(id);
+    }
+    return error("Order not found");
 }
 
-isolated function selectAllOrders() returns Order[]|error {
-    // Retrieve all orders from the database.
+function selectAllOrders() returns Order[] {
+    return orders.toArray();
 }
 
-isolated function selectOrdersByCargoId(string cargoId) returns Order[]|error {
-    // Retrieve all orders by cargo ID from the database.
-}
-
-isolated function getLocationOfCargo(string cargoId) returns Location|sql:Error {
-    // Retrieve the location of the cargo from the database.
+function selectOrdersByCargoId(string cargoId) returns Order[]|error {
+    return from Order ord in orders where ord.cargoId == cargoId select ord;
 }
