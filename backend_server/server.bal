@@ -4,8 +4,21 @@ import ballerina/sql;
 
 @http:ServiceConfig {
     cors: {
-        allowOrigins: ["*"]
-    }
+        allowOrigins: ["http://localhost:3000"],
+        allowMethods: ["GET", "POST", "OPTIONS"]
+    },
+    auth: [
+        {
+            jwtValidatorConfig: {
+                issuer: "wso2",
+                audience: "ballerina",
+                signatureConfig: {
+                    certFile: "resources/public.crt"
+                }
+            },
+            scopes: ["admin"]
+        }
+    ]
 }
 service /sales on new http:Listener(9090) {
     isolated resource function get orders() returns Order[]|error {
