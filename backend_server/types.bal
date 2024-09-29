@@ -30,3 +30,8 @@ public enum CargoType {
     CARGO_WAVE = "CargoWave",
     TRADE_LOGIX = "TradeLogix"
 };
+
+type Location record {|
+    decimal latitude;
+    decimal longitude;
+|};
