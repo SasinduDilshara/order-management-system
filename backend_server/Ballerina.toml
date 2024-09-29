@@ -7,4 +7,7 @@ distribution = "2201.10.0"
 [build-options]
 observabilityIncluded = true
 
-# Add MySQl dependency
+[[platform.java17.dependency]]
+groupId = "mysql"
+artifactId = "mysql-connector-java"
+version = "8.0.20"
