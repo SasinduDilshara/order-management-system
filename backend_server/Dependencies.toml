@@ -244,6 +244,24 @@ dependencies = [
 
 [[package]]
 org = "ballerina"
+name = "order_service"
+version = "0.1.0"
+dependencies = [
+	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "lang.runtime"},
+	{org = "ballerina", name = "log"},
+	{org = "ballerina", name = "random"},
+	{org = "ballerina", name = "sql"},
+	{org = "ballerina", name = "websocket"},
+	{org = "ballerinai", name = "observe"},
+	{org = "ballerinax", name = "mysql"}
+]
+modules = [
+	{org = "ballerina", packageName = "order_service", moduleName = "order_service"}
+]
+
+[[package]]
+org = "ballerina"
 name = "os"
 version = "1.8.0"
 dependencies = [
@@ -289,7 +307,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "time"
-version = "2.5.0"
+version = "2.4.0"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"}
 ]
@@ -350,23 +368,5 @@ dependencies = [
 ]
 modules = [
 	{org = "ballerinax", packageName = "mysql", moduleName = "mysql"}
-]
-
-[[package]]
-org = "bff_samples"
-name = "data_persistence"
-version = "0.1.0"
-dependencies = [
-	{org = "ballerina", name = "http"},
-	{org = "ballerina", name = "lang.runtime"},
-	{org = "ballerina", name = "log"},
-	{org = "ballerina", name = "random"},
-	{org = "ballerina", name = "sql"},
-	{org = "ballerina", name = "websocket"},
-	{org = "ballerinai", name = "observe"},
-	{org = "ballerinax", name = "mysql"}
-]
-modules = [
-	{org = "bff_samples", packageName = "data_persistence", moduleName = "data_persistence"}
 ]
 
